@@ -45,8 +45,14 @@ class App extends Component {
   };
 
   handleSubmit = evt => {
+    // evt.preventDefault();
+    const postObject = {
+      ...this.state.formValues,
+      id: Date.now(),
+    }
+
     axios
-      .post("http://localhost:3333/smurfs", this.state.formValues)
+      .post("http://localhost:3333/smurfs", postObject)
       .then(response => {
         console.log(response.data);
       })
@@ -59,8 +65,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>SMURFS! 2.0 W/O Redux</h1>
-        <div>Welcome to your state management version of Smurfs!</div>
-        {/* <div>Start inside of your `src/index.js` file!</div> */}
+        <div>Welcome to my state management version of Smurfs!</div>
         <div>I will have fun!</div>
 
         <smurfsContext.Provider
