@@ -9,7 +9,7 @@ function SmurfsList() {
     <div className="smurfs-container" >
       {
         data.apiData.map(smurf => {
-          return <Smurf smurf={smurf} />
+          return <Smurf smurf={smurf} key={smurf.id} />;
         })
       }
     </div>
