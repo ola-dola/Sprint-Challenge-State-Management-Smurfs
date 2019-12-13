@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import SmurfsContext from '../components/App';
-import axios from 'axios';
+import smurfsContext from "../contexts/smurfsContext";
+import axios from "axios";
 import "./App.css";
+import SmurfsList from "./SmurfsList";
 
 class App extends Component {
   constructor(props) {
@@ -9,19 +10,36 @@ class App extends Component {
     this.state = {
       apiData: [],
       formValues: {}
-    }
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:3333/smurfs")
+      .then(res => {
+        this.setState({
+          ...this.state,
+          apiData: res.data,
+        });
+        console.log(this.state);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
   }
 
   render() {
     return (
-      <SmurfsContext.Provider value={this.state}>
-        <div className="App">
+      <div className="App">
           <h1>SMURFS! 2.0 W/O Redux</h1>
           <div>Welcome to your state management version of Smurfs!</div>
           {/* <div>Start inside of your `src/index.js` file!</div> */}
           <div>I will have fun!</div>
-        </div>
-      </SmurfsContext.Provider>
+
+        <smurfsContext.Provider value={this.state}>
+          <SmurfsList />
+        </smurfsContext.Provider>
+      </div>
     );
   }
 }
