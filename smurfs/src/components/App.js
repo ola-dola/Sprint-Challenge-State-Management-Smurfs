@@ -34,6 +34,20 @@ class App extends Component {
       });
   }
 
+  componentDidUpdate() {
+    axios
+      .get("http://localhost:3333/smurfs")
+      .then(res => {
+        this.setState({
+          ...this.state,
+          apiData: res.data
+        });
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }
+
   handleFormChange = event => {
     this.setState({
       ...this.state,
@@ -45,7 +59,7 @@ class App extends Component {
   };
 
   handleSubmit = evt => {
-    // evt.preventDefault();
+    evt.preventDefault();
     const postObject = {
       ...this.state.formValues,
       id: Date.now(),
